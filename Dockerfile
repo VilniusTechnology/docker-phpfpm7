@@ -4,6 +4,20 @@ MAINTAINER "Lukas Mikelionis" <lukas.mikelionis@vilnius.technology>
 
 RUN apt-get update
 
+## Install modules
+#RUN apt-get install -y \
+#    libmcrypt-dev  \
+#    libicu-dev \
+#    mysql-client \
+#    && docker-php-ext-install pdo_mysql \
+#    && docker-php-ext-install mysqli \
+#    && docker-php-ext-install mysql \
+#    && docker-php-ext-install iconv \
+#    && docker-php-ext-install mcrypt \
+#    && docker-php-ext-install intl \
+#    && docker-php-ext-install opcache \
+#    && docker-php-ext-install mbstring
+
 # Deploy git
 RUN apt-get install -y git-all
 
@@ -41,4 +55,4 @@ ADD ./entrypoint /entrypoint/entrypoint.sh
 
 VOLUME ["/var/www/"]
 
-CMD ["php-fpm"]
+CMD ["/entrypoint/entrypoint.sh"]
