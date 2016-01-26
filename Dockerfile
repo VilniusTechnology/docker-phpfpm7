@@ -30,6 +30,14 @@ RUN chmod a+x /usr/local/bin/symfony
 
 # Deploy Laravel installer
 RUN composer global require "laravel/installer"
+RUN ln -s /root/.composer/vendor/bin/laravel /usr/local/bin/laravel
+RUN PATH=$PATH:/root/.composer/vendor/bin
+
+# Cleanup
+RUN apt-get clean && apt-get autoclean && apt-get autoremove
+
+ADD ./ini/php.ini /usr/local/etc/php/php.ini
+ADD ./entrypoint /entrypoint/entrypoint.sh
 
 VOLUME ["/var/www/"]
 
