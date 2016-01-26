@@ -4,19 +4,18 @@ MAINTAINER "Lukas Mikelionis" <lukas.mikelionis@vilnius.technology>
 
 RUN apt-get update
 
-## Install modules
-#RUN apt-get install -y \
-#    libmcrypt-dev  \
-#    libicu-dev \
-#    mysql-client \
-#    && docker-php-ext-install pdo_mysql \
-#    && docker-php-ext-install mysqli \
-#    && docker-php-ext-install mysql \
-#    && docker-php-ext-install iconv \
-#    && docker-php-ext-install mcrypt \
-#    && docker-php-ext-install intl \
-#    && docker-php-ext-install opcache \
-#    && docker-php-ext-install mbstring
+# Install modules
+RUN apt-get install -y \
+    libmcrypt-dev  \
+    libicu-dev \
+    mysql-client \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install iconv \
+    && docker-php-ext-install mcrypt \
+    && docker-php-ext-install intl \
+    && docker-php-ext-install opcache \
+    && docker-php-ext-install mbstring
 
 # Deploy git
 RUN apt-get install -y git-all
@@ -51,7 +50,7 @@ RUN PATH=$PATH:/root/.composer/vendor/bin
 RUN apt-get clean && apt-get autoclean && apt-get autoremove
 
 ADD ./ini/php.ini /usr/local/etc/php/php.ini
-ADD ./entrypoint /entrypoint/entrypoint.sh
+ADD ./entrypoint/entrypoint.sh /entrypoint/entrypoint.sh
 
 VOLUME ["/var/www/"]
 
